@@ -1,0 +1,5 @@
+matplotlib
+numpy
+rasterio==1.0.24
+pandas
+torch
