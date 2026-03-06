@@ -27,16 +27,16 @@ from GLC.data_loading.pytorch_dataset import GeoLifeCLEF2021Dataset
 chemin_donnees_local = Path(r"C:\Users\abdou\Downloads\geolifeclef-2021\data")
 
 if chemin_donnees_local.exists():
-    # 1. Si on est sur ton PC, on utilise ton dossier de téléchargement
+    # 1. Mode local (Windows)
     DATA_PATH = chemin_donnees_local
     print("💻 Mode local détecté (Windows) : Données chargées depuis le dossier de téléchargement.")
 else:
-    # 2. Si on est sur le cluster Linux, on cherche 'data' à la racine du projet
-    DATA_PATH = Path(racine_projet) / "data"
-    print("🚀 Mode cluster détecté (Linux) : Données chargées depuis le dossier du projet.")
+    # 2. Mode cluster (Calcul Québec) avec ton chemin absolu exact
+    DATA_PATH = Path("/home/abdkarimouatt/projects/def-sponsor00/geolifeclef/data")
+    print(f"🚀 Mode cluster détecté (Linux) : Données chargées depuis {DATA_PATH}")
 
 PATCHES_PATH = DATA_PATH / "patches_sample"
-MODELS_PATH = Path(racine_projet) / "models"  # Les modèles seront toujours sauvegardés avec le code
+MODELS_PATH = Path(racine_projet) / "models"  # Les modèles seront toujours sauvegardés avec ton code
 
 # Détection automatique du GPU
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
