@@ -2,25 +2,45 @@ import sys
 import os
 import time
 from pathlib import Path
+import matplotlib as plt
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader
-import matplotlib.pyplot as plt
 
-# Importation personnalisée
-root_path = os.path.abspath("../..")
-if root_path not in sys.path:
-    sys.path.append(root_path)
+# --- CORRECTION ABSOLUE DES CHEMINS ---
+# 1. On identifie le dossier actuel (GLC)
+dossier_actuel = os.path.dirname(os.path.abspath(__file__))
+
+# 2. On remonte d'un seul niveau pour atteindre la racine (GLC-2021)
+racine_projet = os.path.dirname(dossier_actuel)
+
+# 3. On ajoute la racine en priorité absolue pour que Python trouve le module 'GLC'
+if racine_projet not in sys.path:
+    sys.path.insert(0, racine_projet)
+
 from GLC.data_loading.pytorch_dataset import GeoLifeCLEF2021Dataset
 
-# --- CONFIGURATION ---
-BASE_PATH = Path(r"C:\Users\abdou\Downloads\geolifeclef-2021")
-DATA_PATH = BASE_PATH / "data"
+# --- CONFIGURATION DYNAMIQUE ---
+# Détection automatique du dossier de données (Local vs Cluster)
+chemin_donnees_local = Path(r"C:\Users\abdou\Downloads\geolifeclef-2021\data")
+
+if chemin_donnees_local.exists():
+    # 1. Si on est sur ton PC, on utilise ton dossier de téléchargement
+    DATA_PATH = chemin_donnees_local
+    print("💻 Mode local détecté (Windows) : Données chargées depuis le dossier de téléchargement.")
+else:
+    # 2. Si on est sur le cluster Linux, on cherche 'data' à la racine du projet
+    DATA_PATH = Path(racine_projet) / "data"
+    print("🚀 Mode cluster détecté (Linux) : Données chargées depuis le dossier du projet.")
+
 PATCHES_PATH = DATA_PATH / "patches_sample"
-MODELS_PATH = BASE_PATH / "models"
-DEVICE = torch.device("cpu") # Change en "cuda" si tu as une GPU
+MODELS_PATH = Path(racine_projet) / "models"  # Les modèles seront toujours sauvegardés avec le code
+
+# Détection automatique du GPU
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Utilisation de l'appareil : {DEVICE}")
 
 # --- MODÈLES ---
 class SimpleGeoLifeCNN(nn.Module):
@@ -112,7 +132,6 @@ def plot_results(history_uni, history_bi, num_epochs):
     
     plt.savefig(MODELS_PATH / 'training_results.png')
     print(f"Graphique sauvegardé dans {MODELS_PATH}")
-    plt.show()
 
 # --- BLOC PRINCIPAL ---
 if __name__ == "__main__":
