@@ -129,8 +129,7 @@ def main():
     print(" Initialisation et chargement du Modèle...")
     model = Model(num_classes=num_classes_fr).to(device)
     
-    # 🔥 MODIFICATION ICI : On charge le modèle entraîné sur la France
-    fichier_modele = MODELS_PATH / "resnet34_fr_epoch_6.pth" 
+    fichier_modele = MODELS_PATH / "resnet34_fr_final.pth" 
     
     if not fichier_modele.exists():
         print(f" ERREUR : Le modèle {fichier_modele.name} n'a pas été trouvé.")
