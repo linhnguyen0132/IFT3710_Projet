@@ -14,7 +14,6 @@ class GeoLifeDataset(Dataset):
 
         print("Loading observations...")
 
-        # Charger les données de la France
         df_fr = pd.read_csv(self.root / "observations" / "observations_fr_train.csv", sep=";")
 
         # Charger les données US
@@ -66,10 +65,7 @@ class GeoLifeDataset(Dataset):
 
         img_path, species = self.observations[idx]
 
-        # récupérer l'id de l'observation
         obs_id = img_path.stem.replace("_rgb", "")
-
-        # chemin vers l'image NIR
         nir_path = img_path.with_name(f"{obs_id}_near_ir.jpg")
 
         # charger RGB
@@ -85,13 +81,10 @@ class GeoLifeDataset(Dataset):
         rgb = np.array(rgb)
         nir = np.array(nir)
 
-        # ajouter une dimension au NIR
         nir = nir[:, :, None]
 
-        # concaténer RGB + NIR → 4 canaux
         image = np.concatenate([rgb, nir], axis=2)
 
-        # convertir en tensor
         image = torch.from_numpy(image).permute(2, 0, 1).float() / 255
 
         if self.transform:
