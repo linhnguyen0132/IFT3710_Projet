@@ -100,7 +100,7 @@ def main():
     if glc_path not in sys.path:
         sys.path.append(glc_path)
 
-    from GLC.data_loadings.pytorch_dataset import GeoLifeCLEF2022Dataset
+    from GLC.data_loading.pytorch_dataset import GeoLifeCLEF2022Dataset    #utiliser le dataset de 2022
     from GLC.data_loading.environmental_raster import PatchExtractor
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
