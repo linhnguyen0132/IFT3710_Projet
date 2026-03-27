@@ -119,10 +119,6 @@ def main():
     val_dataset = SafeDataset(raw_val_dataset)
     print(f" Total d'images à évaluer : {len(val_dataset)}")
 
-    val_indices = [i for i, obs_id in enumerate(val_dataset.observation_ids) if obs_id in valid_ids]
-    val_dataset.observation_ids = val_dataset.observation_ids[val_indices]
-    val_dataset.coordinates = val_dataset.coordinates[val_indices]
-    if val_dataset.targets is not None: val_dataset.targets = val_dataset.targets[val_indices]
 
     val_loader = DataLoader(val_dataset, batch_size=128, shuffle=False, num_workers=0, pin_memory=True)
 
