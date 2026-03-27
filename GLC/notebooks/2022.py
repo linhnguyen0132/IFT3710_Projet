@@ -167,7 +167,7 @@ def main():
 
     # =================================================================
     # OPTIONNEL : SYSTÈME DE REPRISE DE L'ENTRAÎNEMENT
-    # Si le fichier existe, le modèle reprend là où il s'est arrêté !
+    # Si le fichier existe, le modèle reprend là où il s'est arrêté 
     # =================================================================
     fichier_reprise = MODELS_PATH / "resnet34_fr_epoch_1.pth"
     start_epoch = 0
@@ -178,7 +178,7 @@ def main():
         print(" Modèle rechargé. L'entraînement va continuer !")
         start_epoch = 1
     else:
-        print("🆕 Aucun checkpoint trouvé. Le modèle commence de zéro.")
+        print("Aucun checkpoint trouvé. Le modèle commence de zéro.")
 
     def train_and_evaluate(model, train_loader, val_loader, criterion, optimizer, num_epochs=5, start_epoch=0):
         history = {'train_loss': [], 'val_loss': [], 'val_accuracy': []}
