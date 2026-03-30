@@ -19,6 +19,13 @@ This project was developped for the class IFT3710 - Advanced projects in machine
     * `xgboost`        : Model
 
     * `matplotlib`     : Graphics
+      
+    * `pytorch`        : Model
+      
+    * `rasterio`       : Rasters data
+ 
+    * `tifffile`       : read TIFF file
+
 
 ### Installation
 
@@ -62,6 +69,12 @@ Ce projet a été réalisé dans le cadre du cours IFT3710 - Projets avancés en
     * `xgboost`       : modèle
 
     * `matplotlib`    : Courbes et graphiques
+ 
+    * `pytorch`       : Model
+      
+    * `rasterio`      : Gestion des données géospatiales
+ 
+    * `tifffile`      : lire les fichier TIFF
 
 ### Installation
 * Cloner le dépôt sur votre machine / cluster

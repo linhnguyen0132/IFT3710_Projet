@@ -131,8 +131,8 @@ def main():
     if glc_path not in sys.path:
         sys.path.append(glc_path)
 
-    from GLC.data_loadings.pytorch_dataset import GeoLifeCLEF2022Dataset
-    from GLC.data_loading.environmental_raster import PatchExtractor
+    from data_loading22.pytorch_dataset import GeoLifeCLEF2022Dataset   #Utiliser le dataset de 2022
+    from data_loading22.environmental_raster import PatchExtractor
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"\n Appareil utilisé : {device}")
@@ -167,7 +167,7 @@ def main():
 
     # =================================================================
     # OPTIONNEL : SYSTÈME DE REPRISE DE L'ENTRAÎNEMENT
-    # Si le fichier existe, le modèle reprend là où il s'est arrêté !
+    # Si le fichier existe, le modèle reprend là où il s'est arrêté 
     # =================================================================
     fichier_reprise = MODELS_PATH / "resnet34_fr_epoch_1.pth"
     start_epoch = 0
@@ -178,7 +178,7 @@ def main():
         print(" Modèle rechargé. L'entraînement va continuer !")
         start_epoch = 1
     else:
-        print("🆕 Aucun checkpoint trouvé. Le modèle commence de zéro.")
+        print("Aucun checkpoint trouvé. Le modèle commence de zéro.")
 
     def train_and_evaluate(model, train_loader, val_loader, criterion, optimizer, num_epochs=5, start_epoch=0):
         history = {'train_loss': [], 'val_loss': [], 'val_accuracy': []}
